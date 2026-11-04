@@ -92,6 +92,7 @@ section{padding:68px 0}
 @keyframes rise{from{opacity:0;transform:translateY(20px)}}
 .ico{width:56px;height:56px;border-radius:50%;background:var(--cream);display:grid;place-items:center;font-size:1.7rem;margin-bottom:6px;animation:sway 3.4s ease-in-out infinite}
 @keyframes sway{50%{transform:rotate(10deg) scale(1.06)}}
+.ico svg{width:36px;height:40px}
 .card h3{font-size:1.1rem;color:var(--gd)}
 .sz{color:#666;font-size:.92rem}
 .row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:14px}
@@ -235,11 +236,27 @@ var items=[
 function link(t){return "https://wa.me/"+NUM+"?text="+encodeURIComponent(t)}
 function bn(n){return String(n).replace(/\d/g,function(d){return "০১২৩৪৫৬৭৮৯"[d]})}
 function toEn(s){return s.replace(/[০-৯]/g,function(d){return "০১২৩৪৫৬৭৮৯".indexOf(d)})}
+function jarSvg(c){return '<svg viewBox="0 0 48 56"><rect x="13" y="3" width="22" height="8" rx="2.5" fill="#245B3A"/><path d="M11 12h26c3 0 5 2 5 5v28c0 5-3 8-8 8H14c-5 0-8-3-8-8V17c0-3 2-5 5-5z" fill="#FFF3D1" stroke="#173D2A" stroke-width="2.5"/><path d="M8 24h32v21c0 3-2 6-6 6H14c-4 0-6-3-6-6z" fill="'+c+'"/><rect x="14" y="30" width="20" height="14" rx="3" fill="#FFF8E9"/><path d="M19 37h10" stroke="#173D2A" stroke-width="2" stroke-linecap="round"/></svg>'}
+function seedsSvg(c,d){return '<svg viewBox="0 0 48 48"><path d="M10 25c2-9 8-13 14-13s12 4 14 13z" fill="'+c+'"/><g fill="'+d+'"><circle cx="18" cy="20" r="1.7"/><circle cx="25" cy="17" r="1.7"/><circle cx="31" cy="21" r="1.7"/><circle cx="22" cy="23" r="1.7"/><circle cx="28" cy="24" r="1.5"/></g><path d="M5 25h38c0 11-8 19-19 19S5 36 5 25z" fill="#245B3A"/></svg>'}
+var BOTTLE='<svg viewBox="0 0 48 56"><rect x="19" y="2" width="10" height="7" rx="2" fill="#173D2A"/><path d="M20 9h8v6c6 3 9 7 9 13v22c0 4-3 6-6 6H17c-3 0-6-2-6-6V28c0-6 3-10 9-13z" fill="#2B1D0F" stroke="#173D2A" stroke-width="2"/><rect x="15" y="30" width="18" height="14" rx="3" fill="#FFF8E9"/><circle cx="24" cy="37" r="3" fill="#D99A24"/></svg>';
+function ic(n){
+  if(n.indexOf("তেল")>-1)return BOTTLE;
+  if(n==="কালোজিরা")return seedsSvg("#2B1D0F","#6A5440");
+  if(n==="মেথি")return seedsSvg("#C9A24A","#8A6A22");
+  var c="#D99A24";
+  if(n.indexOf("খলিশা")>-1)c="#B8741A";
+  else if(n.indexOf("লিচু")>-1)c="#F0C45A";
+  else if(n.indexOf("কালোজিরা মধু")>-1)c="#5B3A1A";
+  else if(n.indexOf("আমলকী")>-1)c="#8FA640";
+  else if(n.indexOf("সজনে")>-1)c="#4C8C4A";
+  else if(n.indexOf("ইসবগুল")>-1)c="#D9C79A";
+  return jarSvg(c)
+}
 var grid=document.getElementById("grid");
 items.forEach(function(it,i){
   var c=document.createElement("article");
   c.className="card";c.dataset.cat=it[0];c.style.animationDelay=(i*0.06)+"s";
-  c.innerHTML='<div class="ico" aria-hidden="true" style="animation-delay:-'+(i*0.4)+'s">'+it[1]+'</div><h3>'+it[2]+'</h3><div class="sz">'+it[3]+'</div><div class="row"><span class="price">৳ '+it[4]+'</span><div class="qty"><button type="button" aria-label="কমান" data-d="-1">−</button><output aria-live="polite">০</output><button type="button" aria-label="বাড়ান" data-d="1">+</button></div></div>';
+  c.innerHTML='<div class="ico" aria-hidden="true" style="animation-delay:-'+(i*0.4)+'s">'+ic(it[2])+'</div><h3>'+it[2]+'</h3><div class="sz">'+it[3]+'</div><div class="row"><span class="price">৳ '+it[4]+'</span><div class="qty"><button type="button" aria-label="কমান" data-d="-1">−</button><output aria-live="polite">০</output><button type="button" aria-label="বাড়ান" data-d="1">+</button></div></div>';
   grid.appendChild(c);
   var out=c.querySelector("output");
   c.querySelectorAll(".qty button").forEach(function(b){b.addEventListener("click",function(){
@@ -277,4 +294,4 @@ function jig(){barSvg.classList.remove("jig");void barSvg.offsetWidth;barSvg.cla
 function burst(el){var r=el.getBoundingClientRect(),em=["🍯","🌿","🐝","✨"];for(var i=0;i<7;i++){var s=document.createElement("span");s.className="pop";s.textContent=em[i%4];s.style.left=(r.left+r.width/2)+"px";s.style.top=r.top+"px";s.style.setProperty("--x",((Math.random()-.5)*120)+"px");s.style.setProperty("--y",(-40-Math.random()*90)+"px");s.style.setProperty("--r",((Math.random()-.5)*160)+"deg");document.body.appendChild(s);setTimeout(function(x){x.remove()},900,s)}}
 </script>
 </body>
-         </html>
+    </html>
